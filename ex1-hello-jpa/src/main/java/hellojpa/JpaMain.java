@@ -163,5 +163,23 @@ public class JpaMain {
             em.close();
         }
         emf.close();*/
+
+        // 준영속
+
+        try {
+            Member member = em.find(Member.class, 150L);
+            member.setName("AAAAA");
+
+//            em.detach(member);
+            em.clear();
+
+            System.out.println("=========================");
+            tx.commit();
+        } catch (Exception e) {
+            tx.rollback();
+        } finally {
+            em.close();
+        }
+        emf.close();
     }
 }
