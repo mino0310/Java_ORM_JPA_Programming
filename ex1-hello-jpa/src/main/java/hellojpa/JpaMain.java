@@ -78,12 +78,32 @@ public class JpaMain {
         emf.close();*/
 
         //JQPL 사용
-        try {
+/*        try {
             List<Member> result = em.createQuery("select m from Member as m", Member.class)
                     .getResultList();
             for (Member member : result) {
                 System.out.println("member.getName() = " + member.getName());
             }
+        } catch (Exception e) {
+            tx.rollback();
+        } finally {
+            em.close();
+        }
+        emf.close();*/
+
+        // 영속성 컨텍스트 사용
+        try {
+            // 비영속
+            Member member = new Member();
+            member.setId(100L);
+            member.setName("HelloJPA");
+
+            // 영속
+            System.out.println("=== BEFORE ===");
+            em.persist(member);
+            System.out.println("=== AFTER ===");
+
+            tx.commit();
         } catch (Exception e) {
             tx.rollback();
         } finally {
