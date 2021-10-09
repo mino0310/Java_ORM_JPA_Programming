@@ -92,16 +92,18 @@ public class JpaMain {
         emf.close();*/
 
         // 영속성 컨텍스트 사용
-        try {
+        /*try {
             // 비영속
             Member member = new Member();
-            member.setId(100L);
+            member.setId(101L);
             member.setName("HelloJPA");
 
             // 영속
-            System.out.println("=== BEFORE ===");
             em.persist(member);
-            System.out.println("=== AFTER ===");
+            Member findMember = em.find(Member.class, 101L);
+
+            System.out.println("findMember.getId() = " + findMember.getId());
+            System.out.println("findMember.getName() = " + findMember.getName());
 
             tx.commit();
         } catch (Exception e) {
@@ -109,6 +111,57 @@ public class JpaMain {
         } finally {
             em.close();
         }
-        emf.close();
+        emf.close();*/
+
+        // 1차 캐시에서 조회
+        /*try {
+
+            // 영속
+            Member findMember1 = em.find(Member.class, 101L);
+            Member findMember2 = em.find(Member.class, 101L);
+
+            // 영속 엔티티틔 동일성 보장 검증. like 자바 컬렉션
+            System.out.println("result = " + (findMember1 == findMember2));
+
+            tx.commit();
+        } catch (Exception e) {
+            tx.rollback();
+        } finally {
+            em.close();
+        }
+        emf.close();*/
+
+        // 트랙잭션을 지원하는 쓰기 지연 (버퍼링으로 최적화 가능)
+        /*
+        try {
+            Member member1 = new Member(150L, "A");
+            Member member2 = new Member(160L, "B");
+
+            em.persist(member1);
+            em.persist(member2);
+            System.out.println("=========================");
+
+            tx.commit();
+        } catch (Exception e) {
+            tx.rollback();
+        } finally {
+            em.close();
+        }
+        emf.close();*/
+
+        // 변경감지. 1차 캐시 안 스냅샷(읽어오거나 영속 컨텍스트에 넣을 최초의 값)과 엔티티를 비교해서 변화가 있으면 쓰기 지연 SQL 저장소에 update SQL을 생성.
+        /*
+        try {
+            Member member = em.find(Member.class, 150L);
+            member.setName("ZZZZZ");
+            System.out.println("=========================");
+
+            tx.commit();
+        } catch (Exception e) {
+            tx.rollback();
+        } finally {
+            em.close();
+        }
+        emf.close();*/
     }
 }
