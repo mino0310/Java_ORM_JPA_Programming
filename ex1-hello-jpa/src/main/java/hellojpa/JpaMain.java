@@ -204,7 +204,7 @@ public class JpaMain {
         emf.close();*/
 
         // 기본 키 매핑
-        try {
+/*        try {
             Member member = new Member();
             member.setUsername("C");
 
@@ -212,6 +212,31 @@ public class JpaMain {
             em.persist(member);
             System.out.println(" =============== ");
 
+
+            tx.commit();
+        } catch (Exception e) {
+            tx.rollback();
+        } finally {
+            em.close();
+        }
+        emf.close();*/
+
+        // 연관관계 매핑 기초
+        try {
+
+            Team team = new Team();
+            team.setName("TeamA");
+            em.persist(team);
+
+            Member member = new Member();
+            member.setUserName("member1");
+            member.setTeam(team);
+            em.persist(member);
+
+            Member findMember = em.find(Member.class, member.getId());
+
+            Team findTeam = findMember.getTeam();
+            System.out.println("findTeam = " + findTeam.getName());
 
             tx.commit();
         } catch (Exception e) {
