@@ -185,16 +185,34 @@ public class JpaMain {
 */
 
         // 필드와 컬럼 매핑
-        try {
+        /*try {
             Member member = new Member();
-            member.setId(3L);
-            member.setUsername("C");
-            member.setRoleType(RoleType.GUEST);
+            member.setId(2L);
+            member.setUsername("B");
+            member.setRoleType(RoleType.ADMIN);
 
             em.persist(member);
 //            Member member = em.find(Member.class, 2L);
 //            member.setUsername("B");
 //            member.setRoleType(RoleType.ADMIN);
+//            tx.commit();
+        } catch (Exception e) {
+            tx.rollback();
+        } finally {
+            em.close();
+        }
+        emf.close();*/
+
+        // 기본 키 매핑
+        try {
+            Member member = new Member();
+            member.setUsername("C");
+
+            System.out.println(" =============== ");
+            em.persist(member);
+            System.out.println(" =============== ");
+
+
             tx.commit();
         } catch (Exception e) {
             tx.rollback();
