@@ -19,8 +19,9 @@ public class Member {
 //    @Column(name = "TEAM_ID")
 //    private Long teamId;
 
+    // 이 다대일 관계를 할 때, 데이터베이스에서 조인하는 컬럼은 뭐야? 에 대한 답을 적어주면 됨. 조인 시에 사용되는 컬럼을 적어주면 되는 듯?
     @ManyToOne
-    @JoinColumn(name = "TEAM_ID") // 이 다대일 관계를 할 때, 데이터베이스에서 조인하는 컬럼은 뭐야? 에 대한 답을 적어주면 됨. 조인 시에 사용되는 컬럼을 적어주면 되는 듯?
+    @JoinColumn(name = "TEAM_ID")
     private Team team;
 
     public Long getId() {
