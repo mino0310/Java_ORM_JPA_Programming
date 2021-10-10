@@ -165,6 +165,7 @@ public class JpaMain {
         emf.close();*/
 
         // 준영속
+/*
 
         try {
             Member member = em.find(Member.class, 150L);
@@ -174,6 +175,26 @@ public class JpaMain {
             em.clear();
 
             System.out.println("=========================");
+            tx.commit();
+        } catch (Exception e) {
+            tx.rollback();
+        } finally {
+            em.close();
+        }
+        emf.close();
+*/
+
+        // 필드와 컬럼 매핑
+        try {
+            Member member = new Member();
+            member.setId(3L);
+            member.setUsername("C");
+            member.setRoleType(RoleType.GUEST);
+
+            em.persist(member);
+//            Member member = em.find(Member.class, 2L);
+//            member.setUsername("B");
+//            member.setRoleType(RoleType.ADMIN);
             tx.commit();
         } catch (Exception e) {
             tx.rollback();
