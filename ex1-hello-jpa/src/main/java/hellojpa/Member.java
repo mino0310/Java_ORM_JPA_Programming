@@ -47,6 +47,12 @@ public class Member {
     public void setTeam(Team team) {
         this.team = team;
     }
+
+    //    public void changerTeam(Team team) {
+//        this.team = team;
+//        team.getMembers().add(this); // 연관관계 메서드
+//
+//    }
 }
 
 

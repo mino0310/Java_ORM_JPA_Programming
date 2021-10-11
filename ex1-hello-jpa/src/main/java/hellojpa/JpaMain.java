@@ -222,7 +222,7 @@ public class JpaMain {
         emf.close();*/
 
         // 연관관계 매핑 기초
-        try {
+/*        try {
 
             Team team = new Team();
             team.setName("TeamA");
@@ -241,6 +241,39 @@ public class JpaMain {
 
             for (Member m : members) {
                 System.out.println("m.getUserName() = " + m.getUserName());
+            }
+
+            tx.commit();
+        } catch (Exception e) {
+            tx.rollback();
+        } finally {
+            em.close();
+        }
+        emf.close();*/
+
+        // 양방향 매핑시 가장 많이 하는 실수
+        try {
+            // 저장
+            Team team = new Team();
+            team.setName("TeamA");
+            em.persist(team);
+
+            Member member = new Member();
+            member.setUserName("member1");
+//            member.changeTeam(team);
+            em.persist(member);
+
+            team.addMember(member); // 순수 객체를 위한 연관관계 편의 메소드는 아무곳이나 한쪽에서만 하면 됨.
+
+
+            em.clear();
+
+            Team findTeam = em.find(Team.class, team.getId());
+            System.out.println("find func calll!!!");
+            List<Member> members = findTeam.getMembers();
+
+            for (Member m : members) {
+                System.out.println("m = " + m);
             }
 
             tx.commit();
