@@ -252,7 +252,7 @@ public class JpaMain {
         emf.close();*/
 
         // 양방향 매핑시 가장 많이 하는 실수
-        try {
+/*        try {
             // 저장
             Team team = new Team();
             team.setName("TeamA");
@@ -275,6 +275,30 @@ public class JpaMain {
             for (Member m : members) {
                 System.out.println("m = " + m);
             }
+
+            tx.commit();
+        } catch (Exception e) {
+            tx.rollback();
+        } finally {
+            em.close();
+        }
+        emf.close();*/
+
+        // 상속관계 매핑
+        try {
+            Movie movie = new Movie();
+            movie.setDirector("aaaa");
+            movie.setActor("bbbb");
+            movie.setName("바람과함께 사라지다아");
+            movie.setPrice(10000);
+
+            em.persist(movie);
+            
+            em.flush();
+            em.clear();
+
+            Movie findMovie = em.find(Movie.class, movie.getId());
+            System.out.println("findMovie = " + findMovie);
 
             tx.commit();
         } catch (Exception e) {
