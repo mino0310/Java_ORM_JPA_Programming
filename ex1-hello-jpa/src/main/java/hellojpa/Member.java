@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
-public class Member {
+public class Member extends BaseEntity{
 
     @Id @GeneratedValue
     @Column(name = "MEMBER_ID")
