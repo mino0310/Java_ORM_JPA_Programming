@@ -4,8 +4,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
-import java.time.LocalDateTime;
-import java.util.List;
 
 public class JpaMain {
     public static void main(String[] args) {
@@ -310,6 +308,7 @@ public class JpaMain {
         emf.close();*/
 
         // Mapped Superclass - 매핑 정보 상속
+/*
         try {
 
             Member member = new Member();
@@ -322,6 +321,65 @@ public class JpaMain {
             em.flush();
             em.clear();
 
+
+            tx.commit();
+        } catch (Exception e) {
+            tx.rollback();
+        } finally {
+            em.close();
+        }
+        emf.close();
+*/
+
+        // 프록시
+/*
+        try {
+            Member member1 = new Member();
+            member1.setUserName("member1");
+            em.persist(member1);
+
+            em.flush();
+            em.clear();
+
+            Member findMember = em.find(Member.class, member1.getId());
+            System.out.println("findMember = " + findMember.getClass()); // Member
+
+            Member refMember = em.find(Member.class, member1.getId());
+            System.out.println("refMember = " + refMember.getClass()); //PROXY
+
+
+
+            System.out.println("refMember == findMember: " + (refMember == findMember));
+
+
+            tx.commit();
+        } catch (Exception e) {
+            tx.rollback();
+        } finally {
+            em.close();
+        }
+        emf.close();
+*/
+
+        // 즉시 로딩과 지연 로딩
+        try {
+            Team team = new Team();
+            team.setName("teamA");
+            em.persist(team);
+
+            Member member = new Member();
+            member.setUserName("member");
+            member.setTeam(team);
+            em.persist(member);
+
+            em.flush();
+            em.clear();
+
+            Member m = em.find(Member.class, member.getId());
+
+            System.out.println("m = " + m.getTeam().getClass());
+
+            String name = m.getTeam().getName();
 
             tx.commit();
         } catch (Exception e) {
