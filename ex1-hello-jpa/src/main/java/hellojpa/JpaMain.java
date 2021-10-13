@@ -362,7 +362,7 @@ public class JpaMain {
 */
 
         // 즉시 로딩과 지연 로딩
-        try {
+/*        try {
             Team team = new Team();
             team.setName("teamA");
             em.persist(team);
@@ -380,6 +380,25 @@ public class JpaMain {
             System.out.println("m = " + m.getTeam().getClass());
 
             String name = m.getTeam().getName();
+
+            tx.commit();
+        } catch (Exception e) {
+            tx.rollback();
+        } finally {
+            em.close();
+        }
+        emf.close();*/
+
+        try {
+            Child child1 = new Child();
+            Child child2 = new Child();
+
+            Parent parent = new Parent();
+            parent.addChild(child1);
+            parent.addChild(child2);
+
+            em.persist(parent);
+
 
             tx.commit();
         } catch (Exception e) {
