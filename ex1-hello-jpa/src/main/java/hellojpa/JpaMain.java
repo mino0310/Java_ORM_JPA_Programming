@@ -7,6 +7,7 @@ import javax.persistence.Persistence;
 
 public class JpaMain {
     public static void main(String[] args) {
+
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("hello");
 
         EntityManager em = emf.createEntityManager();
@@ -14,7 +15,16 @@ public class JpaMain {
         EntityTransaction tx = em.getTransaction();
 
         tx.begin();
+        try {
+            tx.commit();
 
+        } catch (Exception e) {
+            tx.rollback();
+        } finally {
+            em.close();
+        }
+        emf.close();
+    }
         // 엔티티 등록
 /*        try {
             Member member = new Member();
@@ -389,7 +399,8 @@ public class JpaMain {
         }
         emf.close();*/
 
-        try {
+        // cascade 영속화
+       /* try {
             Child child1 = new Child();
             Child child2 = new Child();
 
@@ -406,6 +417,18 @@ public class JpaMain {
         } finally {
             em.close();
         }
+        emf.close();*/
+
+        // 임베디드 타입
+
+/*        try {
+
+            tx.commit();
+        } catch (Exception e) {
+            tx.rollback();
+        } finally {
+            em.close();
+        }
         emf.close();
-    }
+    }*/
 }
