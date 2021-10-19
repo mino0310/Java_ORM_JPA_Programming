@@ -19,19 +19,12 @@ public class JpaMain {
         tx.begin();
         try {
 
-            CriteriaBuilder cb = em.getCriteriaBuilder();
-            CriteriaQuery<Member> query = cb.createQuery(Member.class);
+            Member member = new Member();
+            member.setUsername("kim");
 
-            Root<Member> m = query.from(Member.class);
+            em.persist(member);
 
-            CriteriaQuery<Member> cq = query.select(m);
 
-            String username = "gadfafds";
-            if (username != null) {
-                cq.where(cb.equal(m.get("username"), "kim"));
-            }
-
-            List<Member> resultList = em.createQuery(cq).getResultList();
 
             tx.commit();
 
