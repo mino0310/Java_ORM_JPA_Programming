@@ -1,10 +1,6 @@
 package hellojpa;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Date;
 
 @Entity
 public class Member extends BaseEntity{
@@ -14,7 +10,7 @@ public class Member extends BaseEntity{
     private Long id;
 
     @Column(name = "USERNAME")
-    private String userName;
+    private String username;
 
 //    @Column(name = "TEAM_ID")
 //    private Long teamId;
@@ -32,12 +28,12 @@ public class Member extends BaseEntity{
         this.id = id;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public Team getTeam() {
