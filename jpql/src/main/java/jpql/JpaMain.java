@@ -39,17 +39,22 @@ public class JpaMain {
             member3.setTeam(teamB);
             em.persist(member3);
 
-            em.flush();
+            int resultCount = em.createQuery("update Member m set m.age = 20")
+                    .executeUpdate();
+
             em.clear();
 
-            List<Member> resultList = em.createNamedQuery("Member.findByUsername", Member.class)
-                    .setParameter("username", "회원1")
-                    .getResultList();
+            Member findMember1 = em.find(Member.class, member1.getId());
+            Member findMember2 = em.find(Member.class, member2.getId());
+            Member findMember3 = em.find(Member.class, member3.getId());
 
-            for (Member member : resultList) {
-                System.out.println("member = " + member);
-                
-            }
+
+            System.out.println("resultCount = " + resultCount);
+
+            System.out.println("findMember1 = " + findMember1);
+            System.out.println("findMember2 = " + findMember2);
+            System.out.println("findMember3 = " + findMember3);
+
 
             tx.commit();
         } catch (Exception e) {
